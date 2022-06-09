@@ -17,4 +17,3 @@ In this project, data exploration is done in SQL, on the Covid Dataset available
 * Creating Views
 * Converting Data Types 
 
-Project is inspired from a youtube [video](https://www.youtube.com/watch?v=qfyynHBFOsM&t=2400s), with additional data exploration queries being executed.
