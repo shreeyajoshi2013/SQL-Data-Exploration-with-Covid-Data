@@ -22,59 +22,59 @@ ORDER BY location, date;
 
 
 --Analysis: Total Cases Vs Total Deaths
---Showing the likelihood of dying if a person contracts covid in his/her country
+--What is the likelihood of dying if person contracts covid in a country(say United States) on each day reported?
 
 SELECT location, date, total_cases, total_deaths, 
-	(total_deaths/total_cases)* 100 as DeathPercentage
+	ROUND((total_deaths/total_cases)* 100, 3) as DeathPercentage
 FROM CovidData.dbo.CovidDeaths 
-WHERE location LIKE '%United States%'	
-ORDER BY location, date;
+WHERE location = 'United States'	
+ORDER BY date ASC;
 
 
 
 --Analysis: Total Cases Vs Population
---Showing how much percentage of the population got covid
+--How much percentage of the population in a country(say United States) got covid on each day reported?
 
 SELECT location, date, total_cases, total_deaths, 
-ROUND((total_deaths/population)* 100, 3) as PercentPopulationInfected
+	ROUND((total_cases/population)* 100, 3) as PercentPopulationInfected
 FROM CovidData.dbo.CovidDeaths 
-WHERE location like '%United States%'
-ORDER BY location, date;
+WHERE location = 'United States'
+ORDER BY date ASC;
 
 
---Showing the countries with the highest infection rate as compared to population
+--Which are the countries with the highest infection rate as compared to population?
 
 SELECT location, population, 
-MAX(total_cases) as HighestInfectionCount, 
-ROUND(MAX(total_cases/population)* 100, 2) as PercentPopulationInfected
+	MAX(total_cases) as HighestInfectionCount, 
+	ROUND(CAST(MAX(total_cases/population)* 100 as FLOAT), 2) as PercentPopulationInfected
 FROM CovidData.dbo.CovidDeaths 
 GROUP BY location, population
-ORDER BY PercentPopulationInfected desc;
+ORDER BY PercentPopulationInfected ASC;
 
 
---Showing the countries with highest death count per population (where the continent not null)
+--Which are the countries with highest death count per population? (where the continent not null)?
 
 SELECT location, 
 MAX(CAST(total_deaths as int)) as TotalDeathCount
 FROM CovidData.dbo.CovidDeaths 
-WHERE continent is not null
+WHERE continent IS NOT NULL
 GROUP BY location
-ORDER BY TotalDeathCount desc;
+ORDER BY TotalDeathCount ASC;
 
 
 
---Showing the countries with highest death count per population (where the continent is null)
+--Which are the locations with highest death count per population (where the continent is null)?
 
 SELECT location, 
 MAX(CAST(total_deaths as int)) as TotalDeathCount
 FROM CovidData.dbo.CovidDeaths 
 WHERE continent is null
 GROUP BY location
-ORDER BY TotalDeathCount desc;
+ORDER BY TotalDeathCount ASC;
 
 
 
---Showing the global numbers- total cases, total deaths and death percentage accross the world on each date available in the data
+--What are the global numbers - total cases, total deaths and death percentage across the world on each date available in the data?
 
 SELECT date, 
 	SUM(new_cases) as sum_new_cases, 
@@ -83,12 +83,12 @@ SELECT date,
 FROM CovidData.dbo.CovidDeaths 
 WHERE continent IS NOT NULL
 GROUP BY date
-ORDER BY date,sum_new_deaths;
+ORDER BY date ASC;
 
 
 
 --Analysis: Total Population Vs Vaccinations
---Showing the total number of people in the world that have been vaccinated by that date
+--How much of the total number of people in the world that have been vaccinated by that date?
 
 SELECT dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations,
 	SUM(CONVERT(bigint, vac.new_vaccinations)) over (Partition BY dea.location ORDER BY dea.location, dea.date ) as rolling_people_vaccinated
@@ -102,7 +102,7 @@ ORDER BY dea.continent,  dea.location ;
 
 
 --Analysis: Total Population Vs Vaccinations
---Showing the total number of people in the world that have been vaccinated by that date and its percentage (Using CTE)
+--How much is the total number of people in the world that have been vaccinated by that date and what is its percentage? (Using CTE)
 
 WITH PopvsVac(Continent, Location, Date, Population, New_Vaccinations, RollingPeopleVaccinated) as
 	(
@@ -120,7 +120,7 @@ FROM PopvsVac;
 
 
 --Analysis: Total Population Vs Vaccinations
---Showing the total number of people in the world that have been vaccinated by that date and its percentage (By creating temperory table)
+--How much is the total number of people in the world that have been vaccinated by that date and what is its percentage? (By creating temporary table)
 
 DROP TABLE IF EXISTS #PercentPopulationVaccinated
 CREATE TABLE #PercentPopulationVaccinated
@@ -147,8 +147,8 @@ FROM #PercentPopulationVaccinated;
 
 
 
-
---Showing the total number of people in the world that have been vaccinated by that date (Using view)
+--Analysis: Total Population Vs Vaccinations
+--How much is the total number of people in the world that have been vaccinated by that date? (Using view)
 
 Create View  PercentPopulationVaccinated AS 
 SELECT dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations,
