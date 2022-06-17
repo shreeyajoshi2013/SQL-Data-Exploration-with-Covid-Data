@@ -9,7 +9,7 @@ The Covid Dataset available on [link](https://ourworldindata.org/covid-deaths).
 
 * SQL Server Management Studio
 
-**The queries include following SQL clauses/statements/functions**
+**Highlights**
 * JOINs
 * CTE
 * Temperory Tables 
