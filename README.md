@@ -1,6 +1,6 @@
 # SQL Data Exploration with Covid Data
 
-This project explores the data in SQL using variety of queries.
+This project explores the data in covid dataset by using variety of queries in SQL. <br>
 The Covid Dataset available on [link](https://ourworldindata.org/covid-deaths).
 
 ## **Database, Database Tool** 
@@ -19,7 +19,7 @@ The Covid Dataset available on [link](https://ourworldindata.org/covid-deaths).
 * Converting Data Types 
 
 
-**What is being done?**
+**What are the questions being answered?**
 1)	What is the country wise number of total cases and total deaths on each day reported?
 2)	What is the country wise percentage of population which contracted covid on each day reported?
 3)	Which are the countries with the highest infection rate with respect to the population?
