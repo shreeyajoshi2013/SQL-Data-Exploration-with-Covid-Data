@@ -1,7 +1,7 @@
 # SQL Data Exploration with Covid Data
 
 This project explores the data in covid dataset by using variety of queries in SQL. <br>
-The visualization of few of the findings is uploaded on Tableau. [link](https://public.tableau.com/app/profile/shreeya2604/viz/Project_Covid_Data/Dashboard1).
+The visualization of few of the findings is uploaded on Tableau [link](https://public.tableau.com/app/profile/shreeya2604/viz/Project_Covid_Data/Dashboard1). <br>
 The Covid Dataset available on [link](https://ourworldindata.org/covid-deaths).
 
 ## **Database, Database Tool** 
